@@ -77,17 +77,19 @@ export default function LoginPage() {
                   <ChakraLink color="blue.400">Esqueceu sua senha?</ChakraLink>
                 </Stack>
                 <Flex flexDirection="column" align="center" gap={2}>
-                  <Button
-                    type="submit"
-                    bg="blue.400"
-                    w="full"
-                    color="white"
-                    _hover={{
-                      bg: 'blue.500'
-                    }}
-                  >
-                    Entrar
-                  </Button>
+                  <Link href="/dashboard" passHref>
+                    <Button
+                      type="submit"
+                      bg="blue.400"
+                      w="full"
+                      color="white"
+                      _hover={{
+                        bg: 'blue.500'
+                      }}
+                    >
+                      Entrar
+                    </Button>
+                  </Link>
                   <Link href="/register?registerCode=80f34bc5e992" passHref>
                     <ChakraLink color="blue.400">Registre-se</ChakraLink>
                   </Link>
