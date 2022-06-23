@@ -68,7 +68,7 @@ export default function LoginPage() {
                 />
                 <FormErrorMessage>
                   <FormErrorIcon />
-                  {errors.email?.type === 'required' && 'Campo não preenchido'}
+                  {errors.password?.type === 'required' && 'Campo não preenchido'}
                 </FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
