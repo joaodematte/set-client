@@ -34,7 +34,9 @@ export default function LoginPage() {
   return (
     <Flex minH="100vh" align="center" justify="center" bg="gray.50">
       <Flex maxW="xl" w="full" gap={8} mx="auto" py={12} px={6} direction="column" align="center">
-        <Image src={logoImage} layout="fixed" />
+        <Box position="relative" width={110.74} height={62}>
+          <Image src={logoImage} alt="TOPSUN Energia Solar" layout="fill" objectFit="contain" />
+        </Box>
         <Box w="full" rounded="lg" bg="white" p={8}>
           <form onSubmit={handleLogin}>
             <Stack spacing={4}>
@@ -74,24 +76,24 @@ export default function LoginPage() {
               <Stack spacing={10}>
                 <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
                   <Checkbox>Manter conectado</Checkbox>
-                  <ChakraLink color="blue.400">Esqueceu sua senha?</ChakraLink>
+                  <ChakraLink color="brand.400">Esqueceu sua senha?</ChakraLink>
                 </Stack>
                 <Flex flexDirection="column" align="center" gap={2}>
                   <Link href="/dashboard" passHref>
                     <Button
                       type="submit"
-                      bg="blue.400"
+                      bg="brand.400"
                       w="full"
                       color="white"
                       _hover={{
-                        bg: 'blue.500'
+                        bg: 'brand.500'
                       }}
                     >
                       Entrar
                     </Button>
                   </Link>
                   <Link href="/register?registerCode=80f34bc5e992" passHref>
-                    <ChakraLink color="blue.400">Registre-se</ChakraLink>
+                    <ChakraLink color="brand.400">Registre-se</ChakraLink>
                   </Link>
                 </Flex>
               </Stack>

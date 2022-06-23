@@ -47,7 +47,9 @@ export default function RegisterPage() {
   return (
     <Flex minH="100vh" align="center" justify="center" bg="gray.50">
       <Flex maxW="xl" w="full" gap={8} mx="auto" py={12} px={6} direction="column" align="center">
-        <Image src={logoImage} layout="fixed" />
+        <Box position="relative" width={110.74} height={62}>
+          <Image src={logoImage} alt="TOPSUN Energia Solar" layout="fill" objectFit="contain" />
+        </Box>
         <Box w="full" rounded="lg" bg="white" p={8}>
           <form onSubmit={handleRegister}>
             <Stack spacing={4}>
@@ -114,17 +116,17 @@ export default function RegisterPage() {
               <Flex flexDirection="column" align="center" gap={2}>
                 <Button
                   type="submit"
-                  bg="blue.400"
+                  bg="brand.400"
                   w="full"
                   color="white"
                   _hover={{
-                    bg: 'blue.500'
+                    bg: 'brand.500'
                   }}
                 >
                   Registrar
                 </Button>
                 <Link href="/" passHref>
-                  <ChakraLink color="blue.400">Voltar ao login</ChakraLink>
+                  <ChakraLink color="brand.400">Voltar ao login</ChakraLink>
                 </Link>
               </Flex>
             </Stack>
