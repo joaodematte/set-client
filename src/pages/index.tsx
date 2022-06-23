@@ -83,7 +83,7 @@ export default function LoginPage() {
                   >
                     Entrar
                   </Button>
-                  <Link href="/register" passHref>
+                  <Link href="/register?registerCode=80f34bc5e992" passHref>
                     <ChakraLink color="blue.400">Registre-se</ChakraLink>
                   </Link>
                 </Flex>
