@@ -7,7 +7,8 @@ import {
   Stack,
   Link as ChakraLink,
   Button,
-  FormErrorMessage
+  FormErrorMessage,
+  FormErrorIcon
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,12 +55,18 @@ export default function RegisterPage() {
                 <FormControl id="name" isInvalid={errors.name && true}>
                   <FormLabel>Nome</FormLabel>
                   <Input type="name" {...register('name', { required: true })} />
-                  <FormErrorMessage>{errors.name?.type === 'required' && 'Campo não preenchido'}</FormErrorMessage>
+                  <FormErrorMessage>
+                    <FormErrorIcon />
+                    {errors.name?.type === 'required' && 'Campo não preenchido'}
+                  </FormErrorMessage>
                 </FormControl>
                 <FormControl id="surname" isInvalid={errors.surname && true}>
                   <FormLabel>Sobrenome</FormLabel>
                   <Input type="surname" {...register('surname', { required: true })} />
-                  <FormErrorMessage>{errors.surname?.type === 'required' && 'Campo não preenchido'}</FormErrorMessage>
+                  <FormErrorMessage>
+                    <FormErrorIcon />
+                    {errors.surname?.type === 'required' && 'Campo não preenchido'}
+                  </FormErrorMessage>
                 </FormControl>
               </Flex>
               <FormControl id="email" isInvalid={errors.email && true}>
@@ -75,6 +82,7 @@ export default function RegisterPage() {
                   })}
                 />
                 <FormErrorMessage>
+                  <FormErrorIcon />
                   {errors.email?.type === 'required' && 'Campo não preenchido'}
                   {errors.email?.type === 'pattern' && 'Formato inválido'}
                 </FormErrorMessage>
@@ -82,12 +90,16 @@ export default function RegisterPage() {
               <FormControl id="password" isInvalid={errors.password && true}>
                 <FormLabel>Senha</FormLabel>
                 <Input type="password" {...register('password', { required: true })} />
-                <FormErrorMessage>{errors.password?.type === 'required' && 'Campo não preenchido'}</FormErrorMessage>
+                <FormErrorMessage>
+                  <FormErrorIcon />
+                  {errors.password?.type === 'required' && 'Campo não preenchido'}
+                </FormErrorMessage>
               </FormControl>
               <FormControl id="passwordConfirm" isInvalid={errors.passwordConfirm && true}>
                 <FormLabel>Confirmação de senha</FormLabel>
                 <Input type="password" {...register('passwordConfirm', { required: true })} />
                 <FormErrorMessage>
+                  <FormErrorIcon />
                   {errors.passwordConfirm?.type === 'required' && 'Campo não preenchido'}
                 </FormErrorMessage>
               </FormControl>
@@ -95,6 +107,7 @@ export default function RegisterPage() {
                 <FormLabel>Código de registro</FormLabel>
                 <Input type="registerCode" {...register('registerCode', { required: true })} />
                 <FormErrorMessage>
+                  <FormErrorIcon />
                   {errors.registerCode?.type === 'required' && 'Campo não preenchido'}
                 </FormErrorMessage>
               </FormControl>

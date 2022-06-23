@@ -8,7 +8,8 @@ import {
   Stack,
   Link as ChakraLink,
   Button,
-  FormErrorMessage
+  FormErrorMessage,
+  FormErrorIcon
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -52,6 +53,7 @@ export default function LoginPage() {
                   })}
                 />
                 <FormErrorMessage>
+                  <FormErrorIcon />
                   {errors.email?.type === 'required' && 'Campo não preenchido'}
                   {errors.email?.type === 'pattern' && 'Formato inválido'}
                 </FormErrorMessage>
@@ -64,7 +66,10 @@ export default function LoginPage() {
                   placeholder="********"
                   {...register('password', { required: true })}
                 />
-                <FormErrorMessage>{errors.email?.type === 'required' && 'Campo não preenchido'}</FormErrorMessage>
+                <FormErrorMessage>
+                  <FormErrorIcon />
+                  {errors.email?.type === 'required' && 'Campo não preenchido'}
+                </FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
                 <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
