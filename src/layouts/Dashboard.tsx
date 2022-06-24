@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: TDashboardLayout) {
   return (
     <>
       <Navbar />
-      <Box width="full" maxW="3xl" mx="auto" mt={8} px={4}>
+      <Box width="full" maxW="3xl" mx="auto" py={8} px={4}>
         {children}
       </Box>
     </>
