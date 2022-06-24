@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link as ChakraLink,
   Button,
@@ -17,19 +16,18 @@ import { useForm } from 'react-hook-form';
 
 import logoImage from '../images/topsun.png';
 
-type LoginForm = {
+type RecoverPasswordForm = {
   email: string;
-  password: string;
 };
 
-export default function LoginPage() {
+export default function LostPassword() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<LoginForm>();
+  } = useForm<RecoverPasswordForm>();
 
-  const handleLogin = handleSubmit((data) => console.log(data));
+  const handleRecoverPassword = handleSubmit((data) => console.log(data));
 
   return (
     <Flex minH="100vh" align="center" justify="center" bg="gray.50">
@@ -38,7 +36,7 @@ export default function LoginPage() {
           <Image src={logoImage} alt="TOPSUN Energia Solar" layout="fill" objectFit="contain" />
         </Box>
         <Box w="full" rounded="lg" bg="white" p={8}>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleRecoverPassword}>
             <Stack spacing={4}>
               <FormControl id="email" isInvalid={errors.email && true}>
                 <FormLabel>Endereço de email</FormLabel>
@@ -60,26 +58,7 @@ export default function LoginPage() {
                   {errors.email?.type === 'pattern' && 'Formato inválido'}
                 </FormErrorMessage>
               </FormControl>
-              <FormControl id="senha" isInvalid={errors.password && true}>
-                <FormLabel>Senha</FormLabel>
-                <Input
-                  type="password"
-                  id="password"
-                  placeholder="********"
-                  {...register('password', { required: true })}
-                />
-                <FormErrorMessage>
-                  <FormErrorIcon />
-                  {errors.password?.type === 'required' && 'Campo não preenchido'}
-                </FormErrorMessage>
-              </FormControl>
               <Stack spacing={10}>
-                <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
-                  <Checkbox>Manter conectado</Checkbox>
-                  <Link href="/recover-password">
-                    <ChakraLink color="brand.400">Esqueceu sua senha?</ChakraLink>
-                  </Link>
-                </Stack>
                 <Flex flexDirection="column" align="center" gap={2}>
                   <Link href="/dashboard" passHref>
                     <Button
@@ -91,11 +70,11 @@ export default function LoginPage() {
                         bg: 'brand.500'
                       }}
                     >
-                      Entrar
+                      Enviar email
                     </Button>
                   </Link>
-                  <Link href="/register?registerCode=80f34bc5e992" passHref>
-                    <ChakraLink color="brand.400">Registre-se</ChakraLink>
+                  <Link href="/" passHref>
+                    <ChakraLink color="brand.400">Voltar ao login</ChakraLink>
                   </Link>
                 </Flex>
               </Stack>
