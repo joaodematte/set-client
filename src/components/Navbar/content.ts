@@ -16,12 +16,12 @@ export const navbarContent: Array<NavItem> = [
       {
         label: 'Unifilar',
         subLabel: 'Gerador de diagramas unifilares',
-        href: '#'
+        href: '/dashboard/diagramas/unifilar'
       },
       {
         label: 'Unifilar simplificado',
         subLabel: 'Gerador de diagramas unifilares simplificados',
-        href: '#'
+        href: '/dashboard/diagramas/unifilar-simplificado'
       }
     ],
     href: '#'
@@ -43,7 +43,24 @@ export const navbarContent: Array<NavItem> = [
     href: '#'
   },
   {
-    label: 'Acessos',
+    label: 'Cadastros',
+    children: [
+      {
+        label: 'Fabricantes',
+        subLabel: 'Listar fabricantes cadastradas',
+        href: '/dashboard/diagramas/unifilar'
+      },
+      {
+        label: 'Inversores',
+        subLabel: 'Listar inversores cadastrados',
+        href: '/dashboard/diagramas/unifilar-simplificado'
+      },
+      {
+        label: 'Módulos',
+        subLabel: 'Listar módulos cadastrados',
+        href: '/dashboard/diagramas/unifilar-simplificado'
+      }
+    ],
     href: '#'
   }
 ];
