@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Badge,
   Box,
@@ -17,56 +17,68 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
+  useDisclosure
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
+import NewManufacturerModal from '../../../components/modals/manufacturer/new';
 
 export default function ManufacturersPage() {
-  return (
-    <Box>
-      <Heading fontSize="xl">Fabricantes</Heading>
-      <Text>Cadastre fabricantes para poder cadastrar módulos e ou inversores</Text>
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-      <TableContainer mt={8}>
-        <Table variant="simple">
-          <TableCaption>Listagem de fabricantes</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Nome</Th>
-              <Th>Tipo(s) de produto(s)</Th>
-              <Th isNumeric />
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Astra Solar</Td>
-              <Td>
-                <HStack>
-                  <Badge variant="subtle" colorScheme="yellow">
-                    Inversores
-                  </Badge>
-                  <Badge variant="subtle" colorScheme="purple">
-                    Módulos
-                  </Badge>
-                </HStack>
-              </Td>
-              <Td isNumeric>
-                <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    Ações
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Editar</MenuItem>
-                    <MenuItem>Excluir</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Box>
+  return (
+    <>
+      <Box>
+        <Heading fontSize="xl">Fabricantes</Heading>
+        <Text>Cadastre fabricantes para poder cadastrar módulos e ou inversores</Text>
+
+        <Button mt={8} leftIcon={<AddIcon />} onClick={onOpen}>
+          Cadastrar novo
+        </Button>
+
+        <TableContainer mt={4}>
+          <Table variant="simple">
+            <TableCaption>Listagem de fabricantes</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Nome</Th>
+                <Th>Tipo(s) de produto(s)</Th>
+                <Th isNumeric />
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Astra Solar</Td>
+                <Td>
+                  <HStack>
+                    <Badge variant="subtle" colorScheme="yellow">
+                      Inversores
+                    </Badge>
+                    <Badge variant="subtle" colorScheme="purple">
+                      Módulos
+                    </Badge>
+                  </HStack>
+                </Td>
+                <Td isNumeric>
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                      Ações
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem>Editar</MenuItem>
+                      <MenuItem>Excluir</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+
+      <NewManufacturerModal isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
 
