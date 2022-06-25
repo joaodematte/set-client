@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TUserContext, UserContext } from '../contexts/UserContext';
@@ -27,6 +28,7 @@ type LoginForm = {
 };
 
 export default function LoginPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ export default function LoginPage() {
   } = useForm<LoginForm>();
   const toast = useToast();
 
-  const { saveJWTCookie } = useContext(UserContext) as TUserContext;
+  const { createSession } = useContext(UserContext) as TUserContext;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -52,11 +54,9 @@ export default function LoginPage() {
           position: 'top-right'
         });
 
-        saveJWTCookie(res.data.user);
-
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 3000);
+        createSession(res.data.user);
+        setIsLoading(false);
+        router.push('/dashboard');
       })
       .catch((error) => {
         setIsLoading(false);

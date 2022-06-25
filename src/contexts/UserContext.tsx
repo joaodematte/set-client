@@ -14,7 +14,8 @@ type User = {
 
 export type TUserContext = {
   loggedUser: User | null;
-  saveJWTCookie: (user: User) => void;
+  createSession: (user: User) => void;
+  destroySession: () => void;
 };
 
 export const UserContext = createContext<TUserContext | null>(null);
@@ -24,7 +25,7 @@ export function UserProvider({ children }: { children: JSX.Element }) {
   const toast = useToast();
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
 
-  const saveJWTCookie = (user: User) => {
+  const createSession = (user: User) => {
     setCookie(null, 'set-jwt', user.jwt, {
       path: '/'
     });
@@ -32,6 +33,11 @@ export function UserProvider({ children }: { children: JSX.Element }) {
     setLoggedUser(user);
 
     api.defaults.headers.common.Authorization = `Bearer ${user.jwt}`;
+  };
+
+  const destroySession = () => {
+    destroyCookie(null, 'set-jwt');
+    setLoggedUser(null);
   };
 
   useEffect(() => {
@@ -64,7 +70,7 @@ export function UserProvider({ children }: { children: JSX.Element }) {
     }
   }, [router, toast]);
 
-  const providerValues = useMemo(() => ({ saveJWTCookie, loggedUser }), [loggedUser]);
+  const providerValues = useMemo(() => ({ createSession, destroySession, loggedUser }), []);
 
   return <UserContext.Provider value={providerValues}>{children}</UserContext.Provider>;
 }

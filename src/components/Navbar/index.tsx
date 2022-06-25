@@ -11,18 +11,41 @@ import {
   MenuItem,
   MenuList,
   Stack,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import DesktopNavbar from './DesktopNavbar';
 import MobileNavbar from './MobileNavbar';
 
 import logoImage from '../../images/topsun.png';
+import { TUserContext, UserContext } from '../../contexts/UserContext';
 
 export default function Navbar() {
+  const router = useRouter();
+  const toast = useToast();
   const { isOpen, onToggle } = useDisclosure();
+
+  const { destroySession } = useContext(UserContext) as TUserContext;
+
+  const handleDestroySession = () => {
+    destroySession();
+
+    toast({
+      title: 'Sucesso!',
+      description: 'Sessão encerrada',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+      position: 'top-right'
+    });
+
+    router.push('/');
+  };
 
   return (
     <Box>
@@ -77,11 +100,9 @@ export default function Navbar() {
                   <MenuItem>Configurações</MenuItem>
                 </Link>
                 <MenuDivider />
-                <Link href="/" passHref>
-                  <MenuItem textColor="brand.500" _hover={{ bg: 'brand.50' }}>
-                    Desconectar
-                  </MenuItem>
-                </Link>
+                <MenuItem textColor="brand.500" _hover={{ bg: 'brand.50' }} onClick={handleDestroySession}>
+                  Encerrar sessão
+                </MenuItem>
               </MenuList>
             </Menu>
           </Stack>
