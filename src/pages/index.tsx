@@ -14,8 +14,9 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { TUserContext, UserContext } from '../contexts/UserContext';
 
 import logoImage from '../images/topsun.png';
 import api from '../utils/axios';
@@ -33,6 +34,8 @@ export default function LoginPage() {
   } = useForm<LoginForm>();
   const toast = useToast();
 
+  const { saveJWTCookie } = useContext(UserContext) as TUserContext;
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleLogin = handleSubmit((data) => {
@@ -48,7 +51,7 @@ export default function LoginPage() {
           position: 'top-right'
         });
 
-        console.log(res.data);
+        saveJWTCookie(res.data.user);
 
         setTimeout(() => {
           setIsLoading(false);
