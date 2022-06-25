@@ -34,37 +34,37 @@ export function UserProvider({ children }: { children: JSX.Element }) {
     api.defaults.headers.common.Authorization = `Bearer ${user.jwt}`;
   };
 
-  const verifyJWT = async (jwt: string) => {
-    api
-      .get(`/auth/by-jwt?jwt=${jwt}`)
-      .then((res) => {
-        setLoggedUser(res.data.user);
-      })
-      .catch((error) => {
-        destroyCookie(null, 'set-jwt');
-
-        router.push('/');
-
-        toast({
-          title: 'Erro!',
-          description: error.response.data.message,
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-          position: 'top-right'
-        });
-      });
-  };
-
   useEffect(() => {
     const { 'set-jwt': token } = parseCookies();
+
+    const verifyJWT = async (jwt: string) => {
+      api
+        .get(`/auth/by-jwt?jwt=${jwt}`)
+        .then((res) => {
+          setLoggedUser(res.data.user);
+        })
+        .catch((error) => {
+          destroyCookie(null, 'set-jwt');
+
+          router.push('/');
+
+          toast({
+            title: 'Erro!',
+            description: error.response.data.message,
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'top-right'
+          });
+        });
+    };
 
     if (token) {
       verifyJWT(token);
     }
-  }, []);
+  }, [router, toast]);
 
-  const providerValues = useMemo(() => ({ saveJWTCookie, loggedUser }), []);
+  const providerValues = useMemo(() => ({ saveJWTCookie, loggedUser }), [loggedUser]);
 
   return <UserContext.Provider value={providerValues}>{children}</UserContext.Provider>;
 }

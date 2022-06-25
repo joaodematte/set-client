@@ -39,6 +39,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleLogin = handleSubmit((data) => {
+    setIsLoading(true);
     api
       .post('/auth/create', data)
       .then((res) => {
