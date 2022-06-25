@@ -12,9 +12,11 @@ import {
   FormErrorIcon,
   useToast
 } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TUserContext, UserContext } from '../contexts/UserContext';
@@ -145,3 +147,19 @@ export default function LoginPage() {
     </Flex>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'set-jwt': token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
+    };
+  }
+  return {
+    props: {}
+  };
+};

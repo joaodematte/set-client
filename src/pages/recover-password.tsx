@@ -10,8 +10,10 @@ import {
   FormErrorMessage,
   FormErrorIcon
 } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { parseCookies } from 'nookies';
 import { useForm } from 'react-hook-form';
 
 import logoImage from '../images/topsun.png';
@@ -85,3 +87,19 @@ export default function LostPassword() {
     </Flex>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'set-jwt': token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
+    };
+  }
+  return {
+    props: {}
+  };
+};
