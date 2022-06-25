@@ -9,13 +9,16 @@ import {
   Link as ChakraLink,
   Button,
   FormErrorMessage,
-  FormErrorIcon
+  FormErrorIcon,
+  useToast
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import logoImage from '../images/topsun.png';
+import api from '../utils/axios';
 
 type LoginForm = {
   email: string;
@@ -28,8 +31,41 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors }
   } = useForm<LoginForm>();
+  const toast = useToast();
 
-  const handleLogin = handleSubmit((data) => console.log(data));
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleLogin = handleSubmit((data) => {
+    api
+      .post('/auth/create', data)
+      .then((res) => {
+        toast({
+          title: 'Sucesso!',
+          description: 'Você será redirecionado para o dashboard',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right'
+        });
+
+        console.log(res.data);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast({
+          title: 'Erro!',
+          description: error.response.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right'
+        });
+      });
+  });
 
   return (
     <Flex minH="100vh" align="center" justify="center" bg="gray.50">
@@ -81,19 +117,18 @@ export default function LoginPage() {
                   </Link>
                 </Stack>
                 <Flex flexDirection="column" align="center" gap={2}>
-                  <Link href="/dashboard" passHref>
-                    <Button
-                      type="submit"
-                      bg="brand.400"
-                      w="full"
-                      color="white"
-                      _hover={{
-                        bg: 'brand.500'
-                      }}
-                    >
-                      Entrar
-                    </Button>
-                  </Link>
+                  <Button
+                    type="submit"
+                    bg="brand.400"
+                    w="full"
+                    color="white"
+                    _hover={{
+                      bg: 'brand.500'
+                    }}
+                    isLoading={isLoading}
+                  >
+                    Entrar
+                  </Button>
                   <Link href="/register?registerCode=80f34bc5e992" passHref>
                     <ChakraLink color="brand.400">Registre-se</ChakraLink>
                   </Link>

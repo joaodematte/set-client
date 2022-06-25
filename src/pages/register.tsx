@@ -8,15 +8,17 @@ import {
   Link as ChakraLink,
   Button,
   FormErrorMessage,
-  FormErrorIcon
+  FormErrorIcon,
+  useToast
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import logoImage from '../images/topsun.png';
+import api from '../utils/axios';
 
 type RegisterForm = {
   name: string;
@@ -29,7 +31,10 @@ type RegisterForm = {
 
 export default function RegisterPage() {
   const router = useRouter();
+  const toast = useToast();
   const { registerCode } = router.query;
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -38,7 +43,39 @@ export default function RegisterPage() {
     formState: { errors }
   } = useForm<RegisterForm>();
 
-  const handleRegister = handleSubmit((data) => console.log(data));
+  const handleRegister = handleSubmit((data) => {
+    setIsLoading(true);
+
+    api
+      .post('/user/create', data)
+      .then(() => {
+        toast({
+          title: 'Sucesso!',
+          description: 'Você será redirecionado para a página de login.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right'
+        });
+
+        setTimeout(() => {
+          setIsLoading(false);
+
+          router.push('/');
+        }, 3000);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast({
+          title: 'Erro!',
+          description: error.response.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right'
+        });
+      });
+  });
 
   useEffect(() => {
     setValue('registerCode', registerCode as string);
@@ -122,6 +159,7 @@ export default function RegisterPage() {
                   _hover={{
                     bg: 'brand.500'
                   }}
+                  isLoading={isLoading}
                 >
                   Registrar
                 </Button>
