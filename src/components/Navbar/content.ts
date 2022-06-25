@@ -48,7 +48,7 @@ export const navbarContent: Array<NavItem> = [
       {
         label: 'Fabricantes',
         subLabel: 'Listar fabricantes cadastradas',
-        href: '/dashboard/diagramas/unifilar'
+        href: '/dashboard/records/manufacturers'
       },
       {
         label: 'Inversores',
