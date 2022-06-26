@@ -38,7 +38,7 @@ export default function ManufacturersPage() {
         </Button>
 
         <TableContainer mt={4}>
-          <Table variant="simple">
+          <Table variant="simple" size="sm">
             <TableCaption>Listagem de fabricantes</TableCaption>
             <Thead>
               <Tr>
@@ -48,6 +48,31 @@ export default function ManufacturersPage() {
               </Tr>
             </Thead>
             <Tbody>
+              <Tr>
+                <Td>Astra Solar</Td>
+                <Td>
+                  <HStack>
+                    <Badge variant="subtle" colorScheme="yellow">
+                      Inversores
+                    </Badge>
+                    <Badge variant="subtle" colorScheme="purple">
+                      Módulos
+                    </Badge>
+                  </HStack>
+                </Td>
+                <Td isNumeric>
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                      Ações
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem>Editar</MenuItem>
+                      <MenuItem>Excluir</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Td>
+              </Tr>
+
               <Tr>
                 <Td>Astra Solar</Td>
                 <Td>
