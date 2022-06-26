@@ -8,7 +8,7 @@ type User = {
   name: string;
   surname: string;
   email: string;
-  profile_pic: string;
+  profilePic: string;
   jwt: string;
 };
 
@@ -47,10 +47,10 @@ export function UserProvider({ children }: { children: JSX.Element }) {
       api
         .get(`/auth/by-jwt?jwt=${jwt}`)
         .then((res) => {
-          setLoggedUser(res.data.user);
+          createSession(res.data.user);
         })
         .catch((error) => {
-          destroyCookie(null, 'set-jwt');
+          destroySession();
 
           router.push('/');
 
@@ -68,9 +68,9 @@ export function UserProvider({ children }: { children: JSX.Element }) {
     if (token) {
       verifyJWT(token);
     }
-  }, [router, toast]);
+  }, []);
 
-  const providerValues = useMemo(() => ({ createSession, destroySession, loggedUser }), []);
+  const providerValues = useMemo(() => ({ createSession, destroySession, loggedUser }), [loggedUser]);
 
   return <UserContext.Provider value={providerValues}>{children}</UserContext.Provider>;
 }
